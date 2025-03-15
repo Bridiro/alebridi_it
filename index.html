@@ -1,54 +1,410 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js ss-preload" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alessandro's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Alessandro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <header>
-        <h1>Alessandro's Portfolio</h1>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
 
-    <section id="about">
-        <h2>About Me</h2>
-            <p>Hi, I'm Alessandro, a <b>low-level</b> programming enthusiast and embedded systems developer.</p>
-            <p>I'm currently studying computer science at the <b>University of Trento</b>.</p>
-            <p>I'm part of <a href="https://eagletrt.it" target="_blank">E-Agle TRT Racing Team</a>, working on the firmware of the steering wheel.</p>
-    </section>
+<body id="top">
+    <div id="preloader">
+        <div id="loader">
+        </div>
+    </div>
+    <div class="s-pagewrap">
+        <div class="circles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <header class="s-header">
+            <div class="header-mobile">
+                <span class="mobile-home-link"><a href="index.html">Alessandro.</a></span>
+                <a class="mobile-menu-toggle" href="#0"><span>Menu</span></a>
+            </div>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <p>Check out my work on <a href="https://github.com/Bridiro" target="_blank">GitHub</a>.</p>
-    </section>
+            <div class="row wide main-nav-wrap">
+                <nav class="column lg-12 main-nav">
+                    <ul>
+                        <li><a href="index.html" class="home-link">Alessandro.</a></li>
+                        <li class="current"><a href="#intro" class="smoothscroll">Intro</a></li>
+                        <li><a href="#about" class="smoothscroll">About</a></li>
+                        <li><a href="#works" class="smoothscroll">Works</a></li>
+                        <li><a href="#contact" class="smoothscroll">Say Hello</a></li>
+                    </ul>
+                </nav>
+            </div>
 
-    <section id="skills">
-        <h2>Skills (& Passions)</h2>
-        <ul>
-            <li>Embedded Systems Development</li>
-            <li>C & Rust enthusiast</li>
-            <li>FPV Drone pilot</li>
-            <li>Motorsport addict</li>
-        </ul>
-    </section>
+        </header>
+        <main class="s-content">
+            <section id="intro" class="s-intro target-section">
+                <div class="row intro-content wide">
+                    <div class="column">
+                        <div class="text-pretitle with-line">
+                            Hello World
+                        </div>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:ale.bridi15@gmail.com">ale.bridi15@gmail.com</a></p>
-    </section>
+                        <h1 class="text-huge-title">
+                            I am Alessandro, <br>
+                            a computer science student <br>
+                            & embedded <br> 
+                            developer based <br>
+                            in Trento, Italy.
+                        </h1>
+                    </div>
 
-    <footer>
-        <p>&copy; 2025 Alessandro</p>
-    </footer>
+                    <ul class="intro-social">
+                        <li><a href="https://www.linkedin.com/in/alessandro-bridi-b579132b0" target="_blank">Linkedin</a></li>
+                        <li><a href="https://github.com/Bridiro" target="_blank">GitHub</a></li>
+                        <li><a href="https://www.instagram.com/ale_bridi_" target="_blank">Instagram</a></li>
+                    </ul>
+                </div>
+
+                <a href="#about" class="intro-scrolldown smoothscroll">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z"/></svg>
+                </a>
+            </section>
+            <section id="about" class="s-about target-section">
+
+                <div class="row about-info wide" data-animate-block>
+                    <div class="column lg-6 md-12 about-info__pic-block">
+                    <!---    
+                        <img src="images/about-photo.jpg" 
+                             srcset="images/about-photo.jpg 1x, images/about-photo@2x.jpg 2x" alt="" class="about-info__pic" data-animate-el>
+                    --->
+<pre><code class="language-c">
+    struct me_t me = {
+        .name = "Alessandro",
+        .title = "Embedded Developer",
+        .languages = {
+            "C",
+            "C++",
+            "Rust",
+            "Java"
+        },
+        .passions = {
+            "FPV Drones",
+            "Motorsport",
+            "Electronics"
+        }
+    };
+</code></pre>
+                    </div>
+
+                    <div class="column lg-6 md-12">
+                        <div class="about-info__text" >
+                            <h2 class="text-pretitle with-line" data-animate-el>
+                                About
+                            </h2>
+                            <p class="attention-getter" data-animate-el>
+                                I am a computer science student at <a href="https://unitn.it" taget="_blank">University of Trento</a>.
+                                In the software team of <a href="https://eagletrt.it" target="_blank">E-Agle Trento Racing Team</a>
+                                I am always learning new things and challenging myself.
+                                You will find me always open to new experiences and ready to surpass my old self.
+                            </p>
+                            <a href="#0" class="btn btn--medium u-fullwidth" data-animate-el>Download CV</a>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="row about-expertise" data-animate-block>
+                    <div class="column lg-12">
+                        <h2 class="text-pretitle" data-animate-el>Expertise</h2>
+                        <ul class="skills-list h1" data-animate-el>
+                            <li>Embedded Systems</li>
+                            <li>Performances</li>
+                            <li>Deep Thinking</li>
+                            <li>Analisys</li>
+                            <li>Prototyping</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="row about-timelines" data-animate-block>
+                    <div class="column lg-6 tab-12">
+                        <h2 class="text-pretitle" data-animate-el>
+                            Experience
+                        </h2>
+                        <div class="timeline" data-animate-el>
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">E-Agle Trento Racing Team</h3>
+                                    <h5 class="timeline__meta">Embedded Developer</h5>
+                                    <p class="timeline__timeframe">December 2024 - Present</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>I'm working as an Embedded Developer for <a href="https://eagletrt.it" target="_blank">E-Agle TRT</a>. In this role, my duty is to develop the firmware of the steering wheel. This is giving me a lot of knowledge on how to work as a big team.</p>
+                                </div>
+                            </div>
+    
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">Training Vision Ireland</h4>
+                                    <h5 class="timeline__meta">Full Stack Developer - Internship</h5>
+                                    <p class="timeline__timeframe">May 2023 - Juny 2023</p>
+                                </div>
+                                <div class="timeline__desc">
+                                        <p>I partecipated in an Erasmus+ project which consisted in working 1 month in Cork, Ireland for <a href="https://www.trainingvisionireland.com" target="_blank">Training Vision Ireland</a>. My duty was to build a web-app using only no-code solutions. I opened my eyes on this "new world" and trained my english skills.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column lg-6 tab-12">
+                        <h2 class="text-pretitle" data-animate-el>
+                            Education
+                        </h2>
+                        <div class="timeline" data-animate-el>
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">University of Trento</h3>
+                                    <h5 class="timeline__meta">Computer Science</h5>
+                                    <p class="timeline__timeframe">September 2024 - Present</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>I'm studying computer science at <a href="https://unitn.it" target="_blank">University of Trento</a>. This univerisy offers a lot of possibilities in varius areas and I'm sure I'll be able to make the most from it.</p>
+                                </div>
+                            </div>
+    
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">Buonarroti Tenchnical Institute of Technology</h4>
+                                    <h5 class="timeline__meta">Computer Science</h5>
+                                    <p class="timeline__timeframe">September 2019 - July 2024</p>
+                                </div>
+                                <div class="timeline__desc">
+                                        In this 5 years of school I partecipated in varius projects to widen my knowledge, from biotechnologies to robotics, I always gave it all myself and once qualified for the <a href="https://2022.robocupjunior.eu" target="_blank">European Robocup Junior</a> held in Guimarães, Portugal in 2022.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="works" class="s-works target-section">
+                <div class="row works-portfolio">
+                    <div class="column lg-12" data-animate-block>
+                        <h2 class="text-pretitle" data-animate-el>
+                            Recent Works
+                        </h2>
+                        <p class="h1" data-animate-el>
+                            Here are some of my favorite projects I have done lately. Feel free to check them out.
+                        </p>
+    
+                        <ul class="folio-list row block-lg-one-half block-stack-on-1000">
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-01">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/steering.jpg" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Embedded graphics
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            sw-libgraphics
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="https://github.com/Bridiro/sw-libgraphics" target="_blank" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li>
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-02">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/font.png" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Embedded graphics
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            sw-libfont
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="https://github.com/Bridiro/BridOS" target="_blank" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li>
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-03">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/os.png" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            OSDev
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            BridOS
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="https://github.com/Bridiro/BridOS" target="_blank" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li>
+
+                            <li class="folio-list__item column" data-animate-el>
+                                <a class="folio-list__item-link" href="#modal-04">
+                                    <div class="folio-list__item-pic">
+                                        <img src="images/chat.png" alt="">
+                                    </div>
+                                    
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Website
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            Rocket Chat
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="https://github.com/Bridiro/rocket_chat" target="_blank" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div id="modal-01" hidden>
+                        <div class="modal-popup">
+                            <img src="images/steering.jpg" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>sw-libgraphics</h5>
+                                <p>This is a lightweight library that can work literally everywhere. It is designed to be flexible and to work flawlessy on MCUs, as its primary scope is to be used on <a href="https://eagletrt.it" target="_blank">E-Agle TRT</a>'s steering wheel.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Embedded graphics</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://github.com/Bridiro/sw-libgraphics" target="_blank" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div>
+
+                    <div id="modal-02" hidden>
+                        <div class="modal-popup">
+                            <img src="images/font.png" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>sw-libfont</h5>
+                                <p>This lightweight libray serves as an utility to prepocess ttf files into C ultra-compressed font bitmaps, and the C library is developed similar to <a href="https://github.com/Bridiro/sw-libgraphics" target="_blank">sw-libgraphics</a> to permit a flawless integration.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Embedded graphics</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://github.com/Bridiro/sw-libfont" target="_blank" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div>
+
+                    <div id="modal-03" hidden>
+                        <div class="modal-popup">
+                            <img src="images/os.png" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>BridOS</h5>
+                                <p>Some years ago I got the crazy idea to start building an OS from scratch, so, following a lot of tutuorials and documentation, I came up with <a href="https://github.com/Bridiro/BridOS" target="_blank">BridOS</a>. It is nowhere near to be complete, but at least it's something I'm proud of.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>OSDev</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://github.com/Bridiro/BridOS" target="_blank" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div>
+
+                    <div id="modal-04" hidden>
+                        <div class="modal-popup">
+                            <img src="images/chat.png" alt="">
+                
+                            <div class="modal-popup__desc">
+                                <h5>Rocket Chat</h5>
+                                <p>I now know "RocketChat" already exists but the name I gave comes from the Rust library I used. Anyway it is a school project and it wanted to be a really secure chat in the browser.</p>
+                                <ul class="modal-popup__cat">
+                                    <li>Website</li>
+                                </ul>
+                            </div>
+                
+                            <a href="https://github.com/Bridiro/rocket_chat" target="_blank" class="modal-popup__details">Project link</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="s-contact target-section">
+
+                <div class="row contact-top">
+                    <div class="column lg-12">
+                        <h2 class="text-pretitle">
+                            Get In Touch
+                        </h2>
+
+                        <p class="h1">
+                            I love to hear from you.
+                            Whether you have a question or just 
+                            want to chat about tech & IT — shoot me a message.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row contact-bottom">
+                    <div class="column lg-3 md-5 tab-6 stack-on-550 contact-block">
+                        <h3 class="text-pretitle">Reach me at</h3>
+                        <p class="contact-links">
+                            <a href="mailto:ale.bridi15@gmail.com">ale.bridi15@gmail.com</a> <br>
+                            <a href="tel:+393482596349">+39 348 259 6349</a>
+                        </p>
+                    </div>
+                    <div class="column lg-4 md-5 tab-6 stack-on-550 contact-block">
+                        <h3 class="text-pretitle">Social</h3>
+                        <ul class="contact-social">
+                            <li><a href="https://www.linkedin.com/in/alessandro-bridi-b579132b0" target="_blank">Linkedin</a></li>
+                            <li><a href="https://github.com/Bridiro" target="_blank">GitHub</a></li>
+                            <li><a href="https://www.instagram.com/ale_bridi_" target="_blank">Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="s-footer">
+            <div class="row">
+                <div class="column ss-copyright">
+                    <span>© Copyright Luther 2021</span> 
+                    <span>Design by <a href="https://www.styleshout.com/">StyleShout</a> Distribution By <a href="https://themewagon.com">Themewagon</a> </span>
+                </div>
+                <div class="ss-go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
-
