@@ -1,38 +1,42 @@
-# The website is at [alebridi.it](https://alebridi.it)
+# alebridi.it
 
-So yeah I changed it all and now we got a good one. It's from a template, that is free.
-This is the license provided by the template owner:
+Personal website, served by GitHub Pages at [alebridi.it](https://alebridi.it).
 
-LICENSE:
+Plain HTML, CSS and an ES module: no framework, no build step for the page itself.
+Everything drawn pixel by pixel on the page (the name in the hero, the glyphr playground,
+the pipeline figures) is rendered by [glyphr](https://github.com/Bridiro/glyphr) compiled
+to WebAssembly.
 
-This free resource is provided by styleshout.com and is free to use in 
-both personal and commercial projects.
+## Layout
 
+```
+index.html              the page
+assets/site.css         styles (tokens at the top, light and dark)
+assets/site.js          glyphr loader, hero, playground, figures
+assets/glyphr.wasm      built from glyphr-web/
+assets/fonts/           Hanken Grotesk, Commit Mono (both OFL)
+assets/work/            project figures
+glyphr-web/             tiny no_std crate exposing glyphr to the page
+```
 
-Rights:
--------
+## Run locally
 
-You are permitted to use this free resource in any number of personal and commercial projects for 
-yourself or a client. You may modify the resource according to your requirements and include them 
-in your projects under the following condition - you MUST give appropriate credit, provide an 
-attribution link to styleshout.com.
+```sh
+python3 -m http.server 8417
+```
 
+Then open http://localhost:8417. The page has to be served over HTTP, since browsers
+won't load the wasm module from `file://`.
 
-Prohibitions:
--------------
+## Rebuild the wasm module
 
-You are not permitted to resell or redistribute(even for free) the resource "as is" without 
-prior consent. If you would like to republish or promote this resource on your site, please 
-link back to the appropriate resource page on styleshout.com where users can find the download 
-and not directly to the download zip file.
+Only needed after changing `glyphr-web/` or bumping glyphr:
 
+```sh
+cd glyphr-web
+cargo build --release --target wasm32-unknown-unknown
+cp target/wasm32-unknown-unknown/release/glyphr_web.wasm ../assets/glyphr.wasm
+```
 
-Attribution: 
-------------
-
-You must include a credit link to our website(https://www.styleshout.com) somewhere on your site. 
-We prefer the footer credit that comes with the template but you are still free to move it 
-somewhere else.
-
-
-If you have any questions about the License, feel free to contact us.
+The module has no wasm-bindgen glue: the page writes UTF-8 into an input buffer,
+calls `render`, and reads 8-bit coverage back from linear memory.

@@ -1,409 +1,428 @@
-<!DOCTYPE html>
-<html class="no-js ss-preload" lang="en">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Alessandro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <title>Alessandro Bridi · Embedded software</title>
+    <meta name="description" content="Embedded developer in Trento. Steering wheel firmware for E-Agle Trento Racing Team, and the libraries that draw on small screens: libraster and glyphr.">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0f0d" media="(prefers-color-scheme: dark)">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alebridi.it/">
+    <meta property="og:title" content="Alessandro Bridi · Embedded software">
+    <meta property="og:description" content="Firmware, and the libraries that draw on small screens.">
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="css/vendor.css">
-    <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="preload" href="assets/fonts/hanken-grotesk-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/glyphr.wasm" as="fetch" type="application/wasm" crossorigin>
+    <link rel="stylesheet" href="assets/site.css">
+    <script type="module" src="assets/site.js"></script>
 </head>
 
-<body id="top">
-    <div id="preloader">
-        <div id="loader">
-        </div>
-    </div>
-    <div class="s-pagewrap">
-        <div class="circles">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <header class="s-header">
-            <div class="header-mobile">
-                <span class="mobile-home-link"><a href="index.html">Alessandro.</a></span>
-                <a class="mobile-menu-toggle" href="#0"><span>Menu</span></a>
+<body>
+    <a class="skip" href="#work">Skip to work</a>
+
+    <header class="masthead wrap">
+        <a class="wordmark" href="#top" aria-label="Alessandro Bridi, back to top">Alessandro Bridi</a>
+        <nav class="nav mono" aria-label="Sections">
+            <a href="#work">Work</a>
+            <a href="#pipeline">Pipeline</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main id="top">
+        <!-- Hero -->
+        <section class="hero wrap" aria-labelledby="hero-title">
+            <p class="eyebrow mono">Embedded software · Trento, Italy</p>
+            <h1 id="hero-title">I write firmware, and the libraries that draw on small screens.</h1>
+
+            <dl class="hero-meta mono">
+                <div><dt>Now</dt><dd>Steering wheel firmware, <a href="https://eagletrt.it" rel="noopener">E-Agle Trento Racing Team</a></dd></div>
+                <div><dt>Study</dt><dd>Computer Science, University of Trento</dd></div>
+                <div><dt>Write</dt><dd>C and Rust, mostly on bare metal</dd></div>
+            </dl>
+
+            <figure class="plate hero-plate" data-plate>
+                <canvas id="hero-canvas" role="img" aria-label="The name Alessandro Bridi, rasterized pixel by pixel by glyphr running in the browser"></canvas>
+                <p class="plate-fallback" aria-hidden="true">Alessandro Bridi</p>
+                <figcaption class="plate-caption mono">
+                    <span>Rendered live by <a href="#glyphr">glyphr</a>, compiled to wasm32</span>
+                    <span id="hero-stats" class="dim"></span>
+                    <span id="hero-probe" class="probe dim">Point at a pixel</span>
+                </figcaption>
+            </figure>
+        </section>
+
+        <!-- Work -->
+        <section id="work" class="section wrap" aria-labelledby="work-title">
+            <header class="section-head">
+                <span class="mono dim">01</span>
+                <h2 id="work-title">Selected work</h2>
+            </header>
+
+            <!-- 01 Steering wheel -->
+            <article class="project" id="steering-wheel" aria-labelledby="p1-title">
+                <header class="project-head">
+                    <span class="project-idx mono">1.1</span>
+                    <h3 id="p1-title">Steering wheel firmware</h3>
+                    <p class="project-kicker mono dim">E-Agle Trento Racing Team · 2024 – now</p>
+                </header>
+                <div class="project-text">
+                    <p class="lede">The firmware behind the driver's display and controls on the team's Formula&nbsp;Student car.</p>
+                    <p>I joined the software department in December 2024 to work on the steering wheel: the display, the buttons and rotary encoders, the LED rows, all talking to the rest of the car over CAN. After contributing to the wheel firmware for <em>Fenice&nbsp;Evo</em>, I'm bringing up the next one from an empty project on a dual-core STM32H747.</p>
+                    <p>The display runs from a framebuffer in external SDRAM, filled with DMA2D and scanned out by the LTDC controller. The rest of the board is configured by hand: timers for LED and backlight PWM, a DAC for the buzzer, ADC channels for temperature sensors, an SD card through FatFs. Static analysis runs clang-tidy against the SEI&nbsp;CERT rules, with every warning treated as an error.</p>
+                    <dl class="spec mono">
+                        <div><dt>Target</dt><dd>STM32H747, Cortex-M7 + Cortex-M4</dd></div>
+                        <div><dt>Display</dt><dd>LTDC, DMA2D, SDRAM framebuffer</dd></div>
+                        <div><dt>Bus</dt><dd>CAN</dd></div>
+                        <div><dt>Language</dt><dd>C</dd></div>
+                        <div><dt>Tooling</dt><dd>PlatformIO, clang-tidy (CERT)</dd></div>
+                    </dl>
+                    <p class="links mono">
+                        <a href="https://github.com/eagletrt/steering-wheel-sw" rel="noopener">eagletrt/steering-wheel-sw <span aria-hidden="true">↗</span></a>
+                        <a href="https://github.com/eagletrt/sw-fenice-evo-steering-wheel" rel="noopener">eagletrt/sw-fenice-evo-steering-wheel <span aria-hidden="true">↗</span></a>
+                    </p>
+                </div>
+                <figure class="plate project-figure">
+                    <div class="hw" role="img" aria-label="Block diagram: buttons, encoders, LED rows, buzzer and temperature sensors connect to an STM32H747 with a Cortex-M7 and a Cortex-M4 sharing memory. DMA2D fills an SDRAM framebuffer that the LTDC scans out to the display. CAN connects to the car, an SD card stores files.">
+                        <div class="hw-col hw-in">
+                            <span class="hw-title">Driver I/O</span>
+                            <span class="hw-box">Buttons</span>
+                            <span class="hw-box">Rotary encoders</span>
+                            <span class="hw-box">LED rows <i>PWM</i></span>
+                            <span class="hw-box">Buzzer <i>DAC</i></span>
+                            <span class="hw-box">Temperatures <i>ADC</i></span>
+                        </div>
+                        <div class="hw-mcu">
+                            <span class="hw-title">STM32H747</span>
+                            <span class="hw-core">Cortex-M7 <i>480 MHz</i></span>
+                            <span class="hw-shared">shared memory</span>
+                            <span class="hw-core">Cortex-M4 <i>240 MHz</i></span>
+                        </div>
+                        <div class="hw-col hw-out">
+                            <span class="hw-title">Display path</span>
+                            <span class="hw-box">DMA2D</span>
+                            <span class="hw-box">SDRAM <i>framebuffer</i></span>
+                            <span class="hw-box">LTDC</span>
+                            <span class="hw-box is-lit">Display</span>
+                        </div>
+                        <div class="hw-bus">
+                            <span class="hw-box">CAN <i>car network</i></span>
+                            <span class="hw-box">SD card <i>FatFs</i></span>
+                        </div>
+                    </div>
+                    <figcaption class="plate-caption mono"><span>Fig. 1</span><span class="dim">New steering wheel board, simplified</span></figcaption>
+                </figure>
+            </article>
+
+            <!-- 02 libraster -->
+            <article class="project" id="libraster" aria-labelledby="p2-title">
+                <header class="project-head">
+                    <span class="project-idx mono">1.2</span>
+                    <h3 id="p2-title">libraster</h3>
+                    <p class="project-kicker mono dim">Embedded UI library · C · 2025 – now</p>
+                </header>
+                <div class="project-text">
+                    <p class="lede">A screen described as a flat list of boxes, drawn with one primitive the platform provides.</p>
+                    <p>libraster asks the platform for exactly one thing: a way to fill a rectangle. On the steering wheel that callback goes to DMA2D; on a desktop it's <code>SDL_FillRect</code>; on a raw framebuffer it's two nested loops. Swapping hardware never touches library code.</p>
+                    <p>It never allocates. In partial mode only boxes flagged as updated are redrawn, so a frame where one value changes costs one box, not one screen. Fonts are generated from TTF files into C sources at build time, each with its own glyph lookup the compiler can fold into a jump table.</p>
+                    <dl class="spec mono">
+                        <div><dt>Language</dt><dd>C</dd></div>
+                        <div><dt>Allocation</dt><dd>None</dd></div>
+                        <div><dt>Redraw</dt><dd>Partial or full, chosen at runtime</dd></div>
+                        <div><dt>Fonts</dt><dd>TTF → SDF C sources, PlatformIO hook</dd></div>
+                    </dl>
+                    <p class="links mono">
+                        <a href="https://github.com/eagletrt/libraster-sw" rel="noopener">eagletrt/libraster-sw <span aria-hidden="true">↗</span></a>
+                    </p>
+                </div>
+                <figure class="plate project-figure">
+                    <div class="dash" id="dash" aria-label="Simulated dashboard showing which boxes are redrawn each frame">
+                        <div class="dash-box" data-key="mot" data-area="1"><span>MOT °C</span><b>23</b></div>
+                        <div class="dash-box dash-mode" data-key="mode" data-area="2"><span>MODE</span><b>IDLE</b></div>
+                        <div class="dash-box" data-key="lv" data-area="1"><span>LV %</span><b>82</b></div>
+                        <div class="dash-box" data-key="inv" data-area="1"><span>INV °C</span><b>26</b></div>
+                        <div class="dash-box dash-main" data-key="hv" data-area="4"><span>HV %</span><b>80</b></div>
+                        <div class="dash-box" data-key="hvt" data-area="1"><span>HV °C</span><b>40</b></div>
+                        <div class="dash-box" data-key="tv" data-area="1"><span>TV</span><b>ON</b></div>
+                        <div class="dash-box" data-key="lap" data-area="1"><span>LAP</span><b>0.0</b></div>
+                    </div>
+                    <div class="plate-controls mono" role="group" aria-label="Render mode">
+                        <button type="button" class="seg" data-mode="partial" aria-pressed="true">Partial</button>
+                        <button type="button" class="seg" data-mode="full" aria-pressed="false">Full redraw</button>
+                        <output id="dash-stats" class="dim" aria-live="off"></output>
+                    </div>
+                    <figcaption class="plate-caption mono"><span>Fig. 2</span><span class="dim">Simulated telemetry. Highlighted boxes are the ones redrawn this frame.</span></figcaption>
+                </figure>
+            </article>
+
+            <!-- 03 glyphr -->
+            <article class="project" id="glyphr" aria-labelledby="p3-title">
+                <header class="project-head">
+                    <span class="project-idx mono">1.3</span>
+                    <h3 id="p3-title">glyphr</h3>
+                    <p class="project-kicker mono dim">Font rasterizer · Rust, no_std · 2025 – now</p>
+                </header>
+                <div class="project-text">
+                    <p class="lede">Text rendering for microcontrollers that aims to be one of the best-looking, not the fastest.</p>
+                    <p>glyphr grew out of the font work in libraster. A proc macro turns a TTF into signed distance fields, scalable at runtime, or into packed 1-bit bitmaps when memory matters more. At runtime there is no heap and no framebuffer of its own: you pass a callback that writes one pixel, or one that receives a whole glyph tile for a DMA2D blit.</p>
+                    <p>Every glyphr-rendered pixel on this page, from the name at the top to the playground beside this text, comes from the published crate compiled to WebAssembly. <span id="glyphr-size">The module, with 95 glyphs baked in, is about 98&nbsp;KB.</span></p>
+                    <dl class="spec mono">
+                        <div><dt>Language</dt><dd>Rust, <code>no_std</code>, no alloc</dd></div>
+                        <div><dt>Formats</dt><dd>SDF, 1-bit bitmap</dd></div>
+                        <div><dt>Output</dt><dd>Per-pixel or per-glyph-tile callbacks</dd></div>
+                        <div><dt>Published</dt><dd>crates.io, v0.6, 7,000+ downloads</dd></div>
+                    </dl>
+                    <p class="links mono">
+                        <a href="https://github.com/Bridiro/glyphr" rel="noopener">Bridiro/glyphr <span aria-hidden="true">↗</span></a>
+                        <a href="https://crates.io/crates/glyphr" rel="noopener">crates.io/crates/glyphr <span aria-hidden="true">↗</span></a>
+                    </p>
+                </div>
+                <figure class="plate project-figure playground" id="playground">
+                    <div class="pg-stage">
+                        <canvas id="pg-canvas" role="img" aria-label="Your text rendered by glyphr"></canvas>
+                        <div class="pg-field">
+                            <canvas id="pg-field" role="img" aria-label="The stored distance field for the last character"></canvas>
+                            <p class="mono dim" id="pg-field-label"></p>
+                        </div>
+                    </div>
+                    <div class="plate-controls pg-controls mono">
+                        <label class="pg-text">
+                            <span>Text</span>
+                            <input id="pg-input" type="text" value="Fenice Evo" maxlength="32" spellcheck="false" autocomplete="off">
+                        </label>
+                        <label>
+                            <span>Size <output id="pg-size-out">28</output> px</span>
+                            <input id="pg-size" type="range" min="8" max="160" value="28">
+                        </label>
+                        <label>
+                            <span>Smoothing <output id="pg-smooth-out">0.50</output></span>
+                            <input id="pg-smooth" type="range" min="5" max="150" value="50">
+                        </label>
+                        <div class="pg-zoom" role="group" aria-label="Magnification">
+                            <span>Zoom</span>
+                            <button type="button" class="seg" data-zoom="1" aria-pressed="false">1×</button>
+                            <button type="button" class="seg" data-zoom="4" aria-pressed="true">4×</button>
+                            <button type="button" class="seg" data-zoom="10" aria-pressed="false">10×</button>
+                        </div>
+                    </div>
+                    <figcaption class="plate-caption mono"><span>Fig. 3</span><span id="pg-stats" class="dim">Loading glyphr…</span></figcaption>
+                </figure>
+            </article>
+
+            <!-- 04 tuican -->
+            <article class="project" id="tuican" aria-labelledby="p4-title">
+                <header class="project-head">
+                    <span class="project-idx mono">1.4</span>
+                    <h3 id="p4-title">tuican</h3>
+                    <p class="project-kicker mono dim">CAN bench tool · Rust · 2026</p>
+                </header>
+                <div class="project-text">
+                    <p class="lede">Everything needed on the bench to talk to a CAN bus, in one binary.</p>
+                    <p>Pick an adapter, load a DBC, edit signals by name and send them once or periodically, while a live table decodes what comes back. Rules let it react: when a received signal matches, it sends a message on its own, which is enough to stand in for a node that isn't on the bench yet.</p>
+                    <p>It works with SocketCAN, gs_usb/candleLight and serial adapters, and ships as prebuilt binaries for macOS, Linux and Raspberry&nbsp;Pi. The Pi builds are cross-compiled with cargo-zigbuild and need nothing installed beyond libc.</p>
+                    <dl class="spec mono">
+                        <div><dt>Interfaces</dt><dd>SocketCAN, gs_usb, serial, virtual</dd></div>
+                        <div><dt>Databases</dt><dd>DBC</dd></div>
+                        <div><dt>Platforms</dt><dd>macOS, Linux, Raspberry Pi</dd></div>
+                        <div><dt>Install</dt><dd><code>cargo install tuican</code></dd></div>
+                    </dl>
+                    <p class="links mono">
+                        <a href="https://github.com/Bridiro/tuican" rel="noopener">Bridiro/tuican <span aria-hidden="true">↗</span></a>
+                    </p>
+                </div>
+                <figure class="plate project-figure">
+                    <img class="shot" src="assets/work/tuican.svg" width="969" height="496" loading="lazy" decoding="async" alt="tuican with the message list and signal editor on top and the live receive table below">
+                    <figcaption class="plate-caption mono"><span>Fig. 4</span><span class="dim">Message list, signal editor and live receive table</span></figcaption>
+                </figure>
+            </article>
+
+            <!-- 05 phantomata -->
+            <article class="project" id="phantomata" aria-labelledby="p5-title">
+                <header class="project-head">
+                    <span class="project-idx mono">1.5</span>
+                    <h3 id="p5-title">phantomata</h3>
+                    <p class="project-kicker mono dim">Type-state state machines · Rust, no_std · 2026</p>
+                </header>
+                <div class="project-text">
+                    <p class="lede">State machines where an illegal transition is a compile error, not a bug report.</p>
+                    <p>Each state is a zero-sized marker type and the machine's current state lives in its type, so a transition written for <code>Locked</code> cannot run on <code>Unlocked</code>. A target state with no handler, typos included, fails to type-check. The whole table is one <code>define_fsm!</code> block.</p>
+                    <p>It is <code>no_std</code> friendly, and an async variant lets transitions await I/O on any executor: a channel, a queue or an interrupt-backed FIFO.</p>
+                    <dl class="spec mono">
+                        <div><dt>Language</dt><dd>Rust, <code>no_std</code></dd></div>
+                        <div><dt>Async</dt><dd>Executor-agnostic</dd></div>
+                        <div><dt>Published</dt><dd>crates.io, v0.1</dd></div>
+                    </dl>
+                    <p class="links mono">
+                        <a href="https://github.com/Bridiro/phantomata" rel="noopener">Bridiro/phantomata <span aria-hidden="true">↗</span></a>
+                    </p>
+                </div>
+                <figure class="plate project-figure">
+                    <svg class="fsm" viewBox="0 0 400 168" role="img" aria-label="Turnstile state machine: Coin moves Locked to Unlocked, Push moves Unlocked to Locked; Push on Locked and Coin on Unlocked stay in place.">
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M0 0 8 4 0 8z" fill="currentColor"/>
+                            </marker>
+                        </defs>
+                        <g class="fsm-edges" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrow)">
+                            <path d="M150 66 C 185 36, 215 36, 250 66"/>
+                            <path d="M250 102 C 215 132, 185 132, 150 102"/>
+                            <path d="M70 66 C 50 18, 110 18, 96 66"/>
+                            <path d="M304 66 C 290 18, 350 18, 330 66"/>
+                        </g>
+                        <g class="fsm-states">
+                            <rect x="40" y="66" width="110" height="36"/>
+                            <rect x="250" y="66" width="110" height="36" class="is-lit"/>
+                            <text x="95" y="89">Locked</text>
+                            <text x="305" y="89">Unlocked</text>
+                        </g>
+                        <g class="fsm-labels">
+                            <text x="200" y="34">Coin</text>
+                            <text x="200" y="146">Push</text>
+                            <text x="83" y="16">Push</text>
+                            <text x="317" y="16">Coin</text>
+                        </g>
+                    </svg>
+<pre class="code"><code>define_fsm!(FSM&lt;Event, Counters&gt;, {
+    Locked => {
+        Event::Coin => Unlocked => |m, _| { /* … */ },
+        Event::Push => Locked   => |_, _| {},
+    },
+    Unlocked => {
+        Event::Push => Locked   => |m, _| { /* … */ },
+        Event::Coin => Unlocked => |_, _| {},
+    },
+});</code></pre>
+                    <figcaption class="plate-caption mono"><span>Fig. 5</span><span class="dim">The turnstile from the docs. Point an arm at <code>Unlockd</code> and it no longer compiles.</span></figcaption>
+                </figure>
+            </article>
+
+            <div class="more">
+                <h3 class="more-title mono dim">Also</h3>
+                <ul class="more-list">
+                    <li>
+                        <a href="https://game-of-life.alebridi.it" rel="noopener"><strong>Game of Life on the GPU</strong> <span aria-hidden="true">↗</span></a>
+                        <p>Rust and WebAssembly driving WebGL. The simulation runs in fragment shaders, on grids up to 2000 × 2000.</p>
+                    </li>
+                    <li>
+                        <a href="https://github.com/eagletrt" rel="noopener"><strong>E-Agle team libraries</strong> <span aria-hidden="true">↗</span></a>
+                        <p>Contributions to libblinky, libring-buffer, the CAN code generator tools and the team's STM32 project template.</p>
+                    </li>
+                    <li>
+                        <span><strong>RoboCup Junior Europe 2022</strong></span>
+                        <p>Qualified with my school's robotics team for the European finals in Guimarães, Portugal.</p>
+                    </li>
+                </ul>
             </div>
+        </section>
 
-            <div class="row wide main-nav-wrap">
-                <nav class="column lg-12 main-nav">
-                    <ul>
-                        <li><a href="index.html" class="home-link">Alessandro.</a></li>
-                        <li class="current"><a href="#intro" class="smoothscroll">Intro</a></li>
-                        <li><a href="#about" class="smoothscroll">About</a></li>
-                        <li><a href="#works" class="smoothscroll">Works</a></li>
-                        <li><a href="#contact" class="smoothscroll">Say Hello</a></li>
-                    </ul>
-                </nav>
+        <!-- Pipeline -->
+        <section id="pipeline" class="section wrap" aria-labelledby="pipeline-title">
+            <header class="section-head">
+                <span class="mono dim">02</span>
+                <h2 id="pipeline-title">From an outline to a lit pixel</h2>
+            </header>
+            <p class="section-intro">Most of my work sits somewhere on this path. Each stage below is drawn by the code it describes.</p>
+
+            <ol class="pipeline">
+                <li class="stage">
+                    <div class="stage-fig plate">
+                        <svg class="outline" viewBox="0 -560 560 600" role="img" aria-label="Outline of the letter a with its on-curve and off-curve points">
+                            <path d="M390 0 382 -91V-310Q382 -362 352 -390Q322 -418 265 -418Q225 -418 188 -402Q152 -386 119 -350L58 -413Q102 -459 156 -480Q209 -502 272 -502Q371 -502 426 -452Q480 -401 480 -310V0ZM231 9Q176 9 134 -11Q92 -31 69 -66Q46 -102 46 -149Q46 -190 63 -220Q80 -249 107 -265Q132 -281 164 -288Q197 -294 234 -294H391V-220H248Q228 -220 206 -216Q185 -213 170 -202Q158 -193 151 -180Q144 -166 144 -148Q144 -113 171 -92Q198 -71 243 -71Q281 -71 312 -88Q344 -106 363 -136Q382 -167 382 -206L417 -160Q408 -108 382 -70Q356 -31 318 -11Q279 9 231 9Z"/>
+                            <g id="outline-points"></g>
+                        </svg>
+                    </div>
+                    <span class="stage-n mono">a</span>
+                    <h3>Outline</h3>
+                    <p>Quadratic curves from a TrueType file. Nothing a microcontroller wants to evaluate per frame.</p>
+                </li>
+                <li class="stage">
+                    <div class="stage-fig plate"><canvas id="fig-field" role="img" aria-label="Signed distance field of the letter a as stored by glyphr"></canvas></div>
+                    <span class="stage-n mono">b</span>
+                    <h3>Distance field</h3>
+                    <p>Baked at compile time into flash: each texel stores how far it is from the edge. <a href="#glyphr">glyphr</a>, <a href="#libraster">libraster</a></p>
+                </li>
+                <li class="stage">
+                    <div class="stage-fig plate"><canvas id="fig-coverage" role="img" aria-label="The letter a rasterized at small size, each pixel showing its coverage"></canvas></div>
+                    <span class="stage-n mono">c</span>
+                    <h3>Coverage</h3>
+                    <p>Sampled at any size and smoothed across the edge into an 8-bit alpha per pixel. <a href="#glyphr">glyphr</a></p>
+                </li>
+                <li class="stage">
+                    <div class="stage-fig plate">
+                        <svg class="layout" viewBox="0 0 120 120" role="img" aria-label="A screen split into boxes, one of them marked for redraw">
+                            <rect x="8" y="8" width="32" height="30"/><rect x="44" y="8" width="68" height="30"/>
+                            <rect x="8" y="42" width="32" height="34"/><rect x="44" y="42" width="40" height="70" class="is-lit"/><rect x="88" y="42" width="24" height="34"/>
+                            <rect x="8" y="80" width="32" height="32"/><rect x="88" y="80" width="24" height="32"/>
+                        </svg>
+                    </div>
+                    <span class="stage-n mono">d</span>
+                    <h3>Layout</h3>
+                    <p>Boxes and labels. Only what changed is redrawn. <a href="#libraster">libraster</a></p>
+                </li>
+                <li class="stage">
+                    <div class="stage-fig plate">
+                        <svg class="panel" viewBox="0 0 120 120" role="img" aria-label="DMA2D writing into an SDRAM framebuffer, scanned out by LTDC to the panel">
+                            <rect x="14" y="14" width="64" height="44" class="layer"/>
+                            <rect x="28" y="34" width="64" height="44" class="layer"/>
+                            <rect x="42" y="54" width="64" height="44" class="layer is-lit"/>
+                            <text x="17" y="27">DMA2D</text><text x="31" y="47">SDRAM</text><text x="45" y="67">LTDC</text>
+                        </svg>
+                    </div>
+                    <span class="stage-n mono">e</span>
+                    <h3>Panel</h3>
+                    <p>DMA2D fills the framebuffer, LTDC scans it out to the display. <a href="#steering-wheel">Steering wheel</a></p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="section wrap" aria-labelledby="about-title">
+            <header class="section-head">
+                <span class="mono dim">03</span>
+                <h2 id="about-title">About</h2>
+            </header>
+            <div class="about">
+                <div class="about-text">
+                    <p class="lede">I'm Alessandro, a Computer Science student at the University of Trento and an embedded developer on the E-Agle Trento Racing Team.</p>
+                    <p>I like the layer where software meets a physical thing: registers, timing, and a display that has to stay smooth on a microcontroller. Most of what I build ends up as a small library with a narrow job, because that is what survives being moved to the next board.</p>
+                    <p>Away from the keyboard: FPV drones, motorsport and electronics.</p>
+                    <p class="tools mono"><span class="dim">Daily</span><span>C, Rust, STM32, PlatformIO, Linux</span><span class="dim">Also</span><span>C++, Python, OCaml, WebAssembly</span></p>
+                </div>
+                <ol class="timeline">
+                    <li><span class="mono dim">2024 – now</span><strong>E-Agle Trento Racing Team</strong><span>Embedded developer, steering wheel</span></li>
+                    <li><span class="mono dim">2024 – now</span><strong>University of Trento</strong><span>BSc Computer Science</span></li>
+                    <li><span class="mono dim">2023</span><strong>Training Vision Ireland, Cork</strong><span>Erasmus+ internship, one month</span></li>
+                    <li><span class="mono dim">2019 – 2024</span><strong>ITT Buonarroti, Trento</strong><span>Diploma in Computer Science</span></li>
+                </ol>
             </div>
+        </section>
 
-        </header>
-        <main class="s-content">
-            <section id="intro" class="s-intro target-section">
-                <div class="row intro-content wide">
-                    <div class="column">
-                        <div class="text-pretitle with-line">
-                            Hello World
-                        </div>
+        <!-- Contact -->
+        <section id="contact" class="section wrap contact" aria-labelledby="contact-title">
+            <header class="section-head">
+                <span class="mono dim">04</span>
+                <h2 id="contact-title">Contact</h2>
+            </header>
+            <p class="contact-line">Working on something with a small screen or a CAN bus? <a href="mailto:ale.bridi15@gmail.com">ale.bridi15@gmail.com</a></p>
+            <p class="links mono">
+                <a href="https://github.com/Bridiro" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+                <a href="https://www.linkedin.com/in/alessandro-bridi" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+            </p>
+        </section>
+    </main>
 
-                        <h1 class="text-huge-title">
-                            I am Alessandro, <br>
-                            a computer science student <br>
-                            & embedded <br> 
-                            developer based <br>
-                            in Trento, Italy.
-                        </h1>
-                    </div>
-
-                    <ul class="intro-social">
-                        <li><a href="https://www.linkedin.com/in/alessandro-bridi" target="_blank">Linkedin</a></li>
-                        <li><a href="https://github.com/Bridiro" target="_blank">GitHub</a></li>
-                        <li><a href="https://www.instagram.com/ale_bridi_" target="_blank">Instagram</a></li>
-                    </ul>
-                </div>
-
-                <a href="#about" class="intro-scrolldown smoothscroll">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z"/></svg>
-                </a>
-            </section>
-            <section id="about" class="s-about target-section">
-
-                <div class="row about-info wide" data-animate-block>
-                    <div class="column lg-6 md-12 about-info__pic-block">
-                    <!---    
-                        <img src="images/about-photo.jpg" 
-                             srcset="images/about-photo.jpg 1x, images/about-photo@2x.jpg 2x" alt="" class="about-info__pic" data-animate-el>
-                    --->
-<pre><code class="language-c">
-    struct me_t me = {
-        .name = "Alessandro",
-        .title = "Embedded Developer",
-        .languages = {
-            "C",
-            "C++",
-            "Rust",
-            "Java"
-        },
-        .passions = {
-            "FPV Drones",
-            "Motorsport",
-            "Electronics"
-        }
-    };
-</code></pre>
-                    </div>
-
-                    <div class="column lg-6 md-12">
-                        <div class="about-info__text" >
-                            <h2 class="text-pretitle with-line" data-animate-el>
-                                About
-                            </h2>
-                            <p class="attention-getter" data-animate-el>
-                                I am a computer science student at <a href="https://unitn.it" taget="_blank">University of Trento</a>.
-                                In the software team of <a href="https://eagletrt.it" target="_blank">E-Agle Trento Racing Team</a>
-                                I am always learning new things and challenging myself.
-                                You will find me always open to new experiences and ready to surpass my old self.
-                            </p>
-                            <a href="#0" class="btn btn--medium u-fullwidth" data-animate-el>Download CV</a>
-                        </div>
-                    </div>
-                </div> 
-
-                <div class="row about-expertise" data-animate-block>
-                    <div class="column lg-12">
-                        <h2 class="text-pretitle" data-animate-el>Expertise</h2>
-                        <ul class="skills-list h1" data-animate-el>
-                            <li>Embedded Systems</li>
-                            <li>Performances</li>
-                            <li>Deep Thinking</li>
-                            <li>Analisys</li>
-                            <li>Prototyping</li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div class="row about-timelines" data-animate-block>
-                    <div class="column lg-6 tab-12">
-                        <h2 class="text-pretitle" data-animate-el>
-                            Experience
-                        </h2>
-                        <div class="timeline" data-animate-el>
-                            <div class="timeline__block">
-                                <div class="timeline__bullet"></div>
-                                <div class="timeline__header">
-                                    <h4 class="timeline__title">E-Agle Trento Racing Team</h3>
-                                    <h5 class="timeline__meta">Embedded Developer</h5>
-                                    <p class="timeline__timeframe">December 2024 - Present</p>
-                                </div>
-                                <div class="timeline__desc">
-                                    <p>I'm working as an Embedded Developer for <a href="https://eagletrt.it" target="_blank">E-Agle TRT</a>. In this role, my duty is to develop the firmware of the steering wheel. This is giving me a lot of knowledge on how to work as a big team.</p>
-                                </div>
-                            </div>
-    
-                            <div class="timeline__block">
-                                <div class="timeline__bullet"></div>
-                                <div class="timeline__header">
-                                    <h4 class="timeline__title">Training Vision Ireland</h4>
-                                    <h5 class="timeline__meta">Full Stack Developer - Internship</h5>
-                                    <p class="timeline__timeframe">May 2023 - Juny 2023</p>
-                                </div>
-                                <div class="timeline__desc">
-                                        <p>I partecipated in an Erasmus+ project which consisted in working 1 month in Cork, Ireland for <a href="https://www.trainingvisionireland.com" target="_blank">Training Vision Ireland</a>. My duty was to build a web-app using only no-code solutions. I opened my eyes on this "new world" and trained my english skills.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column lg-6 tab-12">
-                        <h2 class="text-pretitle" data-animate-el>
-                            Education
-                        </h2>
-                        <div class="timeline" data-animate-el>
-                            <div class="timeline__block">
-                                <div class="timeline__bullet"></div>
-                                <div class="timeline__header">
-                                    <h4 class="timeline__title">University of Trento</h3>
-                                    <h5 class="timeline__meta">Computer Science</h5>
-                                    <p class="timeline__timeframe">September 2024 - Present</p>
-                                </div>
-                                <div class="timeline__desc">
-                                    <p>I'm studying computer science at <a href="https://unitn.it" target="_blank">University of Trento</a>. This univerisy offers a lot of possibilities in varius areas and I'm sure I'll be able to make the most from it.</p>
-                                </div>
-                            </div>
-    
-                            <div class="timeline__block">
-                                <div class="timeline__bullet"></div>
-                                <div class="timeline__header">
-                                    <h4 class="timeline__title">Buonarroti Tenchnical Institute of Technology</h4>
-                                    <h5 class="timeline__meta">Computer Science</h5>
-                                    <p class="timeline__timeframe">September 2019 - July 2024</p>
-                                </div>
-                                <div class="timeline__desc">
-                                        In this 5 years of school I partecipated in varius projects to widen my knowledge, from biotechnologies to robotics, I always gave it all myself and once qualified for the <a href="https://2022.robocupjunior.eu" target="_blank">European Robocup Junior</a> held in Guimarães, Portugal in 2022.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="works" class="s-works target-section">
-                <div class="row works-portfolio">
-                    <div class="column lg-12" data-animate-block>
-                        <h2 class="text-pretitle" data-animate-el>
-                            Recent Works
-                        </h2>
-                        <p class="h1" data-animate-el>
-                            Here are some of my favorite projects I have done lately. Feel free to check them out.
-                        </p>
-    
-                        <ul class="folio-list row block-lg-one-half block-stack-on-1000">
-                            <li class="folio-list__item column" data-animate-el>
-                                <a class="folio-list__item-link" href="#modal-01">
-                                    <div class="folio-list__item-pic">
-                                        <img src="images/steering.jpg" alt="">
-                                    </div>
-                                    
-                                    <div class="folio-list__item-text">
-                                        <div class="folio-list__item-cat">
-                                            Embedded graphics
-                                        </div>
-                                        <div class="folio-list__item-title">
-                                            libraster
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="folio-list__proj-link" href="https://github.com/eagletrt/libraster-sw" target="_blank" title="project link">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </li>
-
-                            <li class="folio-list__item column" data-animate-el>
-                                <a class="folio-list__item-link" href="#modal-02">
-                                    <div class="folio-list__item-pic">
-                                        <img src="images/font.png" alt="">
-                                    </div>
-                                    
-                                    <div class="folio-list__item-text">
-                                        <div class="folio-list__item-cat">
-                                            Embedded graphics
-                                        </div>
-                                        <div class="folio-list__item-title">
-                                            glyphr
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="folio-list__proj-link" href="https://github.com/Bridiro/BridOS" target="_blank" title="project link">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </li>
-
-                            <li class="folio-list__item column" data-animate-el>
-                                <a class="folio-list__item-link" href="#modal-03">
-                                    <div class="folio-list__item-pic">
-                                        <img src="images/os.png" alt="">
-                                    </div>
-                                    
-                                    <div class="folio-list__item-text">
-                                        <div class="folio-list__item-cat">
-                                            OSDev
-                                        </div>
-                                        <div class="folio-list__item-title">
-                                            BridOS
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="folio-list__proj-link" href="https://github.com/Bridiro/BridOS" target="_blank" title="project link">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </li>
-
-                            <li class="folio-list__item column" data-animate-el>
-                                <a class="folio-list__item-link" href="#modal-04">
-                                    <div class="folio-list__item-pic">
-                                        <img src="images/chat.png" alt="">
-                                    </div>
-                                    
-                                    <div class="folio-list__item-text">
-                                        <div class="folio-list__item-cat">
-                                            Website
-                                        </div>
-                                        <div class="folio-list__item-title">
-                                            Rocket Chat
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="folio-list__proj-link" href="https://github.com/Bridiro/rocket_chat" target="_blank" title="project link">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                    <div id="modal-01" hidden>
-                        <div class="modal-popup">
-                            <img src="images/steering.jpg" alt="">
-                
-                            <div class="modal-popup__desc">
-                                <h5>libraster</h5>
-                                <p>This is a lightweight library that can work literally everywhere. It is designed to be flexible and to work flawlessy on MCUs, as its primary scope is to be used on <a href="https://eagletrt.it" target="_blank">E-Agle TRT</a>'s steering wheel.</p>
-                                <ul class="modal-popup__cat">
-                                    <li>Embedded graphics</li>
-                                </ul>
-                            </div>
-                
-                            <a href="https://github.com/eagletrt/libraster-sw" target="_blank" class="modal-popup__details">Project link</a>
-                        </div>
-                    </div>
-
-                    <div id="modal-02" hidden>
-                        <div class="modal-popup">
-                            <img src="images/font.png" alt="">
-                
-                            <div class="modal-popup__desc">
-                                <h5>glyphr</h5>
-                                    <p>This library is a personal project developed after working on <a href="https://github.com/eagletrt/libraster-sw">libraster</a>. This focuses only on font rendering, making beautiful while keeping in mind performances. It's made in Rust with support for embedded development.</p>
-                                <ul class="modal-popup__cat">
-                                    <li>Embedded graphics</li>
-                                </ul>
-                            </div>
-                
-                            <a href="https://github.com/Bridiro/glyphr" target="_blank" class="modal-popup__details">Project link</a>
-                        </div>
-                    </div>
-
-                    <div id="modal-03" hidden>
-                        <div class="modal-popup">
-                            <img src="images/os.png" alt="">
-                
-                            <div class="modal-popup__desc">
-                                <h5>BridOS</h5>
-                                <p>Some years ago I got the crazy idea to start building an OS from scratch, so, following a lot of tutuorials and documentation, I came up with <a href="https://github.com/Bridiro/BridOS" target="_blank">BridOS</a>. It is nowhere near to be complete, but at least it's something I'm proud of.</p>
-                                <ul class="modal-popup__cat">
-                                    <li>OSDev</li>
-                                </ul>
-                            </div>
-                
-                            <a href="https://github.com/Bridiro/BridOS" target="_blank" class="modal-popup__details">Project link</a>
-                        </div>
-                    </div>
-
-                    <div id="modal-04" hidden>
-                        <div class="modal-popup">
-                            <img src="images/chat.png" alt="">
-                
-                            <div class="modal-popup__desc">
-                                <h5>Rocket Chat</h5>
-                                <p>I now know "RocketChat" already exists but the name I gave comes from the Rust library I used. Anyway it is a school project and it wanted to be a really secure chat in the browser.</p>
-                                <ul class="modal-popup__cat">
-                                    <li>Website</li>
-                                </ul>
-                            </div>
-                
-                            <a href="https://github.com/Bridiro/rocket_chat" target="_blank" class="modal-popup__details">Project link</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact" class="s-contact target-section">
-
-                <div class="row contact-top">
-                    <div class="column lg-12">
-                        <h2 class="text-pretitle">
-                            Get In Touch
-                        </h2>
-
-                        <p class="h1">
-                            I love to hear from you.
-                            Whether you have a question or just 
-                            want to chat about tech & IT — shoot me a message.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row contact-bottom">
-                    <div class="column lg-3 md-5 tab-6 stack-on-550 contact-block">
-                        <h3 class="text-pretitle">Reach me at</h3>
-                        <p class="contact-links">
-                            <a href="mailto:ale.bridi15@gmail.com">ale.bridi15@gmail.com</a> <br>
-                        </p>
-                    </div>
-                    <div class="column lg-4 md-5 tab-6 stack-on-550 contact-block">
-                        <h3 class="text-pretitle">Social</h3>
-                        <ul class="contact-social">
-                            <li><a href="https://www.linkedin.com/in/alessandro-bridi" target="_blank">Linkedin</a></li>
-                            <li><a href="https://github.com/Bridiro" target="_blank">GitHub</a></li>
-                            <li><a href="https://www.instagram.com/ale_bridi_" target="_blank">Instagram</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="s-footer">
-            <div class="row">
-                <div class="column ss-copyright">
-                    <span>© Copyright Luther 2021</span> 
-                    <span>Design by <a href="https://www.styleshout.com/">StyleShout</a> Distribution By <a href="https://themewagon.com">Themewagon</a> </span>
-                </div>
-                <div class="ss-go-top">
-                    <a class="smoothscroll" title="Back to Top" href="#top">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
-                    </a>
-                </div>
-            </div>
-        </footer>
-    </div>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    <footer class="colophon wrap mono dim">
+        <span>© 2026 Alessandro Bridi</span>
+        <span>Set in Hanken Grotesk and Commit Mono. Pixels by glyphr.</span>
+    </footer>
 </body>
 </html>
